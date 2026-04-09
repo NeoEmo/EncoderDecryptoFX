@@ -62,9 +62,9 @@
                         <configuration>
                             <mainClass>org.fxstudy.encoderdecryptofx/org.fxstudy.encoderdecryptofx.HelloApplication
                             </mainClass>
-                            <launcher>app</launcher>
-                            <jlinkZipName>app</jlinkZipName>
-                            <jlinkImageName>app</jlinkImageName>
+                            <launcher>EncoderDercyptoFX</launcher>
+                            <jlinkZipName>EncoderDercyptoFX</jlinkZipName>
+                            <jlinkImageName>EncoderDercyptoFX</jlinkImageName>
                             <noManPages>true</noManPages>
                             <stripDebug>true</stripDebug>
                             <noHeaderFiles>true</noHeaderFiles>
