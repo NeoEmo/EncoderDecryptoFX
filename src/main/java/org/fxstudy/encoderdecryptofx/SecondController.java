@@ -105,9 +105,14 @@ public class SecondController {
                     simpleDecrypt.start(language, message.getText(), key.getText());
                     EncodeDecryptMessage.setText("Расшифровка данного сообщения: " + simpleDecrypt.getDecryptMessage());
                 }
-                case 2, 3 -> {
+                case 2 -> {
                     AdvancedDecrypt advancedDecrypt = new AdvancedDecrypt();
-                    advancedDecrypt.start(language, select, message.getText());
+                    advancedDecrypt.start(language, select, message.getText(), key.getText());
+                    EncodeDecryptMessage.setText("Расшифровка данного сообщения: " + advancedDecrypt.getDecryptMessage());
+                }
+                case 3 -> {
+                    AdvancedDecrypt advancedDecrypt = new AdvancedDecrypt();
+                    advancedDecrypt.start(language, select, message.getText(), key.getText());
                 }
             }
         }

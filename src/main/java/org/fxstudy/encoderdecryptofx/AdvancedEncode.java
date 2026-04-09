@@ -79,7 +79,7 @@ public class AdvancedEncode {
                             .orElse(-1);
 
                     if (index != -1) {
-                        int newIndex = (index + realKey) % 52;
+                        int newIndex = (index + realKey) % advancedAlphabetEng.length;
                         return advancedAlphabetEng[newIndex];
                     }
                     return charString;
@@ -125,7 +125,7 @@ public class AdvancedEncode {
                             .orElse(-1);
 
                     if (index != -1) {
-                        int newIndex = (index + realKey) % 52;
+                        int newIndex = (index + realKey) % advancedAlphabetRu.length;
                         return advancedAlphabetRu[newIndex];
                     }
                     return charString;
@@ -210,8 +210,8 @@ public class AdvancedEncode {
                 result.addAll(Arrays.asList(grLetters).subList(0, thirdParameter));
                 result.addAll(Arrays.asList(plLetters));
                 result.addAll(Arrays.asList(grLetters).subList(thirdParameter, 48));
-                result.addAll(Arrays.asList(enLetters).subList(secondParameter, 66));
-                result.addAll(Arrays.asList(ruLetters).subList(firstParameter, 52));
+                result.addAll(Arrays.asList(enLetters).subList(secondParameter, 52));
+                result.addAll(Arrays.asList(ruLetters).subList(firstParameter, 66));
                 String[] mixAlphabet = result.toArray(new String[0]);
 
                 return new MixingResult(mixAlphabet, firstParameter, secondParameter, thirdParameter);
