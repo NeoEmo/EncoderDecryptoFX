@@ -1,0 +1,6 @@
+.choice-box .label {
+    -fx-alignment: center;
+}
+.label-clickable {
+    -fx-cursor: hand;
+}

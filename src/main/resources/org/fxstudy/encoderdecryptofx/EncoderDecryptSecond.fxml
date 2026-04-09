@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.fxstudy.encoderdecryptofx.SecondController">
+    <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+        <Label fx:id="messageTxt" text="Введите сообщение:" textAlignment="CENTER" />
+    </HBox>
+    <TextArea fx:id="message" prefHeight="200.0" prefWidth="200.0" />
+    <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+        <Label fx:id="keyTxt" text="Введите ключ:" textAlignment="CENTER" />
+    </HBox>
+    <TextArea fx:id="key" prefHeight="200.0" prefWidth="200.0" />
+    <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+        <VBox alignment="CENTER" HBox.hgrow="ALWAYS">
+            <Label fx:id="EncodeDecryptMessage" wrapText="true" styleClass="label-clickable" onMouseClicked="#copyToClipboard"/>
+            <Label fx:id="EncodeDecryptKey" wrapText="true" styleClass="label-clickable" onMouseClicked="#copyToClipboard"/>
+        </VBox>
+    </HBox>
+    <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="25.0">
+        <Button fx:id="EncodeDecrypt" onAction="#startEncodeDecrypt" />
+        <Button fx:id="backButton" onAction="#goBack" text="Назад" />
+    </HBox>
+</VBox>
