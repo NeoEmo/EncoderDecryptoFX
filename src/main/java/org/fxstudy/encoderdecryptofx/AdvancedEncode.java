@@ -92,6 +92,7 @@ public class AdvancedEncode {
         this.encodeMessage = Base64.getEncoder().encodeToString(encodeMessage.getBytes(StandardCharsets.UTF_8));
         this.key = key;
 
+                    /**ОТЛАДКИ**/
         System.out.println(encodeMessage);
         System.out.println(Arrays.toString(keyParts));
         System.out.println(key);
@@ -100,8 +101,49 @@ public class AdvancedEncode {
     }
 
     private void advancedEncodeRu() {
-        int index = 2;
-        String[] advancedAlphabetRu = simpleMix(2).mixedAlphabet();
+        MixingResult mr = simpleMix(2);
+        String[] advancedAlphabetRu = Objects.requireNonNull(mr).mixedAlphabet();
+
+        int[]Params = { mr.firstParameter(), mr.secondParameter(), mr.thirdParameter(), mr.mixedAlphabet.length };
+        KeyGenerator keyGenerator = new KeyGenerator();
+        keyGenerator.advancedStart(Params);
+        String key = keyGenerator.getKey();
+        byte[] decodedBytes = Base64.getDecoder().decode(key);
+        String decodeKey = new String(decodedBytes, StandardCharsets.UTF_8);
+        String[]keyParts = decodeKey.split(" ");
+        int realKey = Integer.parseInt(keyParts[3]);
+
+        List<String> messageList = message.chars()
+                .mapToObj(character -> (char) character)
+                .map(currentChar -> {
+                    String charString = String.valueOf(currentChar);
+                    if (currentChar == ' ') return " ";
+
+                    int index = IntStream.range(0, advancedAlphabetRu.length)
+                            .filter(i -> advancedAlphabetRu[i].equals(charString))
+                            .findFirst()
+                            .orElse(-1);
+
+                    if (index != -1) {
+                        int newIndex = (index + realKey) % 52;
+                        return advancedAlphabetRu[newIndex];
+                    }
+                    return charString;
+                })
+                .collect(Collectors.toList());
+
+        String encodeMessage = messageList.stream().collect(Collectors.joining());
+
+
+        this.encodeMessage = Base64.getEncoder().encodeToString(encodeMessage.getBytes(StandardCharsets.UTF_8));
+        this.key = key;
+
+                    /**ОТЛАДКИ**/
+        System.out.println(encodeMessage);
+        System.out.println(Arrays.toString(keyParts));
+        System.out.println(key);
+        System.out.println(decodeKey);
+        System.out.println(Arrays.toString(advancedAlphabetRu));
     }
 
     private MixingResult simpleMix(int index) {
@@ -154,14 +196,28 @@ public class AdvancedEncode {
                         .lines()
                         .toList();
 
+                String[] ruLetters = listAlphabetRu.getFirst().split(" ");
+                String[] enLetters = listAlphabetEng.getFirst().split(" ");
+                String[] grLetters = listAlphabetGr.getFirst().split(" ");
+                String[] plLetters = listAlphabetPl.getFirst().split(" ");
+
                 int firstParameter = (int) (Math.random() * 66);
                 int secondParameter = (int) (Math.random() * 52);
                 int thirdParameter = (int) (Math.random() * 48);
-                int fourParameter = (int) (Math.random() * 70);
+                List<String> result = new ArrayList<>();
+                result.addAll(Arrays.asList(ruLetters).subList(0, firstParameter));
+                result.addAll(Arrays.asList(enLetters).subList(0 , secondParameter));
+                result.addAll(Arrays.asList(grLetters).subList(0, thirdParameter));
+                result.addAll(Arrays.asList(plLetters));
+                result.addAll(Arrays.asList(grLetters).subList(thirdParameter, 48));
+                result.addAll(Arrays.asList(enLetters).subList(secondParameter, 66));
+                result.addAll(Arrays.asList(ruLetters).subList(firstParameter, 52));
+                String[] mixAlphabet = result.toArray(new String[0]);
+
+                return new MixingResult(mixAlphabet, firstParameter, secondParameter, thirdParameter);
             }
             default -> throw new IllegalStateException("Unexpected value: " + index);
         }
-        return null;
     }
 
     private void fullAdvancedEncode(String language) {
