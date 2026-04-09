@@ -3,7 +3,9 @@ package org.fxstudy.encoderdecryptofx;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.util.Arrays;
+
+import java.nio.charset.StandardCharsets;
+import java.util.Base64;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -18,13 +20,14 @@ public class KeyGenerator {
             case 1 -> {
                 simpleKeyGenerator();
             }
-            case 2 -> {
-                advancedKeyGenerator();
-            }
             case 3 -> {
                 advancedFullKeyGenerator();
             }
         }
+    }
+
+    public void advancedStart(int[]params) {
+        advancedKeyGenerator(params[0], params[1], params[2], params[3]);
     }
 
     private void simpleKeyGenerator() {
@@ -60,8 +63,11 @@ public class KeyGenerator {
         this.key = key;
     }
 
-    private void advancedKeyGenerator() {
+    private void advancedKeyGenerator(int first, int second, int third, int length) {
+        int guaranteedDigit = (int) (Math.random() * length);
+        String key = first + " " + second + " " + third + " " + guaranteedDigit;
 
+        this.key = Base64.getEncoder().encodeToString(key.getBytes(StandardCharsets.UTF_8));
     }
 
     private void advancedFullKeyGenerator() {

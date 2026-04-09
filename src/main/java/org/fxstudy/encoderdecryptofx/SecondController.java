@@ -87,10 +87,15 @@ public class SecondController {
                     EncodeDecryptMessage.setText("Ваше сообщение: " + simpleEncode.encodeMessage);
                     EncodeDecryptKey.setText("Ключ для расшифровки: " + simpleEncode.key);
                 }
-                case 2, 3 -> {
+                case 2 -> {
                     AdvancedEncode advancedEncode = new AdvancedEncode();
                     advancedEncode.start(language, select, message.getText());
-
+                    EncodeDecryptMessage.setText("Ваше сообщение: " + advancedEncode.encodeMessage);
+                    EncodeDecryptKey.setText("Ключ для расшифровки: " + advancedEncode.key);
+                }
+                case 3 -> {
+                    AdvancedEncode advancedEncode = new AdvancedEncode();
+                    advancedEncode.start(language, select, message.getText());
                 }
             }
         } else {
