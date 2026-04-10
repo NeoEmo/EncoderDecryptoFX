@@ -84,7 +84,7 @@ public class AdvancedEncode {
                     }
                     return charString;
                 })
-                .collect(Collectors.toList());
+                .toList();
 
         String encodeMessage = messageList.stream().collect(Collectors.joining());
 
@@ -98,6 +98,8 @@ public class AdvancedEncode {
         System.out.println(key);
         System.out.println(decodeKey);
         System.out.println(Arrays.toString(advancedAlphabetEng));
+        System.out.println(Arrays.hashCode(advancedAlphabetEng));
+        System.out.println(advancedAlphabetEng.length);
     }
 
     private void advancedEncodeRu() {
@@ -130,7 +132,7 @@ public class AdvancedEncode {
                     }
                     return charString;
                 })
-                .collect(Collectors.toList());
+                .toList();
 
         String encodeMessage = messageList.stream().collect(Collectors.joining());
 
@@ -144,6 +146,8 @@ public class AdvancedEncode {
         System.out.println(key);
         System.out.println(decodeKey);
         System.out.println(Arrays.toString(advancedAlphabetRu));
+        System.out.println(Arrays.hashCode(advancedAlphabetRu));
+        System.out.println(advancedAlphabetRu.length);
     }
 
     private MixingResult simpleMix(int index) {
@@ -178,7 +182,9 @@ public class AdvancedEncode {
                 result.addAll(Arrays.asList(grLetters).subList(thirdParameter, 48));
                 result.addAll(Arrays.asList(ruLetters).subList(secondParameter, 66));
                 result.addAll(Arrays.asList(enLetters).subList(firstParameter, 52));
-                String[] mixAlphabet = result.toArray(new String[0]);
+                Set<String> uniqueSet = new LinkedHashSet<>(result);
+                List<String> uniqueList = new ArrayList<>(uniqueSet);
+                String[] mixAlphabet = uniqueList.toArray(new String[0]);
 
                 return new MixingResult(mixAlphabet, firstParameter, secondParameter, thirdParameter);
             }
@@ -212,7 +218,9 @@ public class AdvancedEncode {
                 result.addAll(Arrays.asList(grLetters).subList(thirdParameter, 48));
                 result.addAll(Arrays.asList(enLetters).subList(secondParameter, 52));
                 result.addAll(Arrays.asList(ruLetters).subList(firstParameter, 66));
-                String[] mixAlphabet = result.toArray(new String[0]);
+                Set<String> uniqueSet = new LinkedHashSet<>(result);
+                List<String> uniqueList = new ArrayList<>(uniqueSet);
+                String[] mixAlphabet = uniqueList.toArray(new String[0]);
 
                 return new MixingResult(mixAlphabet, firstParameter, secondParameter, thirdParameter);
             }

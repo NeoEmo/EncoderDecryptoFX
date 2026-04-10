@@ -50,7 +50,7 @@ public class SimpleDecrypt {
 
                     if (index != -1) {
                         int newIndex = (index - realKey) % 52;
-                        if (newIndex < 52) {
+                        if (newIndex < 0) {
                             newIndex += 52;
                         }
                         return engLetters[newIndex];
@@ -81,7 +81,7 @@ public class SimpleDecrypt {
 
                     if (index != -1) {
                         int newIndex = (index - realKey) % 66;
-                        if (newIndex < 66) {
+                        if (newIndex < 0) {
                             newIndex += 66;
                         }
                         return ruLetters[newIndex];

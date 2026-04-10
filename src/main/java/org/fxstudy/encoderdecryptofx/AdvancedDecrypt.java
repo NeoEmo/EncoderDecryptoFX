@@ -84,7 +84,9 @@ public class AdvancedDecrypt {
         alphabet.addAll(Arrays.asList(grLetters).subList(Integer.parseInt(keyParts[2]), 48));
         alphabet.addAll(Arrays.asList(ruLetters).subList(Integer.parseInt(keyParts[1]), 66));
         alphabet.addAll(Arrays.asList(enLetters).subList(Integer.parseInt(keyParts[0]), 52));
-        String[] mixAlphabet = alphabet.toArray(new String[0]);
+        Set<String> uniqueSet = new LinkedHashSet<>(alphabet);
+        List<String> uniqueList = new ArrayList<>(uniqueSet);
+        String[] mixAlphabet = uniqueList.toArray(new String[0]);
 
         List<String> messageList = message.chars()
                 .mapToObj(character -> (char) character)
@@ -103,12 +105,17 @@ public class AdvancedDecrypt {
                     }
                     return charString;
                 })
-                .collect(Collectors.toList());
+                .toList();
 
-        this.decryptMessage = messageList.stream().collect(Collectors.joining());
+        this.decryptMessage = String.join("", messageList);
 
                         /**Отладка**/
+        System.out.println(realKey);
+        System.out.println(key);
+        System.out.println(message);
         System.out.println(Arrays.toString(mixAlphabet));
+        System.out.println(Arrays.hashCode(mixAlphabet));
+        System.out.println(mixAlphabet.length);
     }
 
     private void advancedDecryptRu() {
@@ -143,7 +150,9 @@ public class AdvancedDecrypt {
         alphabet.addAll(Arrays.asList(grLetters).subList(Integer.parseInt(keyParts[2]), 48));
         alphabet.addAll(Arrays.asList(enLetters).subList(Integer.parseInt(keyParts[1]), 52));
         alphabet.addAll(Arrays.asList(ruLetters).subList(Integer.parseInt(keyParts[0]), 66));
-        String[] mixAlphabet = alphabet.toArray(new String[0]);
+        Set<String> uniqueSet = new LinkedHashSet<>(alphabet);
+        List<String> uniqueList = new ArrayList<>(uniqueSet);
+        String[] mixAlphabet = uniqueList.toArray(new String[0]);
 
         List<String> messageList = message.chars()
                 .mapToObj(character -> (char) character)
@@ -157,20 +166,24 @@ public class AdvancedDecrypt {
                             .orElse(-1);
 
                     if (index != -1) {
-                        int newIndex = Math.floorMod(index - realKey, mixAlphabet.length);
+                        int newIndex = index - realKey;
+                        while (newIndex < 0 ) newIndex += mixAlphabet.length;
+                        newIndex %= mixAlphabet.length;
                         return mixAlphabet[newIndex];
                     }
                     return charString;
                 })
-                .collect(Collectors.toList());
+                .toList();
 
-        this.decryptMessage = messageList.stream().collect(Collectors.joining());
+        this.decryptMessage = String.join("", messageList);
 
         /**Отладка**/
         System.out.println(realKey);
         System.out.println(key);
         System.out.println(message);
         System.out.println(Arrays.toString(mixAlphabet));
+        System.out.println(Arrays.hashCode(mixAlphabet));
+        System.out.println(mixAlphabet.length);
     }
 
     private void fullAdvancedDecrypt(String language) {
