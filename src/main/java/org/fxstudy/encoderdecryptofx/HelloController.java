@@ -157,7 +157,7 @@ public class HelloController {
         } else {
             String language = chooseLang.getValue().toString();
             try {
-                switchToSecondScene(three, DecryptBox.isSelected(), language, 2);
+                switchToSecondScene(three, DecryptBox.isSelected(), language, 3);
             } catch (IOException e) {
                 e.printStackTrace();
                 System.out.println("Не удалось переключить сцену");

@@ -89,13 +89,15 @@ public class SecondController {
                 }
                 case 2 -> {
                     AdvancedEncode advancedEncode = new AdvancedEncode();
-                    advancedEncode.start(language, select, message.getText());
+                    advancedEncode.start(language, message.getText());
                     EncodeDecryptMessage.setText("Ваше сообщение: " + advancedEncode.encodeMessage);
                     EncodeDecryptKey.setText("Ключ для расшифровки: " + advancedEncode.key);
                 }
                 case 3 -> {
                     AdvancedEncode advancedEncode = new AdvancedEncode();
-                    advancedEncode.start(language, select, message.getText());
+                    advancedEncode.fullStart(language, message.getText());
+                    EncodeDecryptMessage.setText("Ваше сообщение: " + advancedEncode.encodeMessage);
+                    EncodeDecryptKey.setText("Ключ для расшифровки: " + advancedEncode.key);
                 }
             }
         } else {
@@ -113,6 +115,7 @@ public class SecondController {
                 case 3 -> {
                     AdvancedDecrypt advancedDecrypt = new AdvancedDecrypt();
                     advancedDecrypt.start(language, select, message.getText(), key.getText());
+                    EncodeDecryptMessage.setText("Расшифровка данного сообщения: " + advancedDecrypt.getDecryptMessage());
                 }
             }
         }

@@ -6,7 +6,7 @@
 
     <groupId>org.FXStudy</groupId>
     <artifactId>EncoderDecryptoFX</artifactId>
-    <version>0.3-SNAPSHOT</version>
+    <version>0.4-SNAPSHOT</version>
     <name>EncoderDecryptoFX</name>
 
     <properties>

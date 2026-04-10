@@ -20,14 +20,16 @@ public class KeyGenerator {
             case 1 -> {
                 simpleKeyGenerator();
             }
-            case 3 -> {
-                advancedFullKeyGenerator();
-            }
         }
     }
 
     public void advancedStart(int[]params) {
         advancedKeyGenerator(params[0], params[1], params[2], params[3]);
+    }
+
+    public void fullAdvancedStart(int[]params) {
+        advancedFullKeyGenerator(params[0], params[1], params[2], params[3], params[4], params[5], params[6],
+                params[7], params[8], params[9], params[10], params[11], params[12], params[13], params[14]);
     }
 
     private void simpleKeyGenerator() {
@@ -70,8 +72,17 @@ public class KeyGenerator {
         this.key = Base64.getEncoder().encodeToString(key.getBytes(StandardCharsets.UTF_8));
     }
 
-    private void advancedFullKeyGenerator() {
+    private void advancedFullKeyGenerator(int first, int second, int third, int fourth, int fifth, int sixth,
+                                          int seventh, int eighth, int ninth, int tenth, int eleventh, int twelfth,
+                                          int thirteenth, int fourteenth, int length) {
 
+        int guaranteedDigit = (int) (Math.random() * length);
+
+        String key = first + " " + second + " " + third  + " " + fourth  + " " + fifth  + " " + sixth  + " " + seventh
+                + " " + eighth  + " " + ninth  + " " + tenth  + " " + eleventh  + " " + twelfth  + " " + thirteenth
+                + " " + fourteenth  + " " + guaranteedDigit;
+
+        this.key = Base64.getEncoder().encodeToString(key.getBytes(StandardCharsets.UTF_8));
     }
 
     public String getKey() {
