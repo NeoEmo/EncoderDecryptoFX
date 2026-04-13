@@ -5,6 +5,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
 import java.util.Objects;
@@ -23,13 +24,12 @@ public class KeyGenerator {
         }
     }
 
-    public void advancedStart(int[]params) {
-        advancedKeyGenerator(params[0], params[1], params[2], params[3]);
+    public void advancedStart(ArrayList<Integer> params) {
+        advancedKeyGenerator(params);
     }
 
-    public void fullAdvancedStart(int[]params) {
-        advancedFullKeyGenerator(params[0], params[1], params[2], params[3], params[4], params[5], params[6],
-                params[7], params[8], params[9], params[10], params[11], params[12], params[13], params[14]);
+    public void fullAdvancedStart(ArrayList<Integer> params) {
+        advancedFullKeyGenerator(params);
     }
 
     private void simpleKeyGenerator() {
@@ -65,24 +65,34 @@ public class KeyGenerator {
         this.key = key;
     }
 
-    private void advancedKeyGenerator(int first, int second, int third, int length) {
-        int guaranteedDigit = (int) (Math.random() * length);
-        String key = first + " " + second + " " + third + " " + guaranteedDigit;
+    private void advancedKeyGenerator(ArrayList<Integer> params) {
 
-        this.key = Base64.getEncoder().encodeToString(key.getBytes(StandardCharsets.UTF_8));
+        int length = params.size() - 1;
+
+        int guaranteedDigit = (int) (Math.random() * params.get(length));
+
+        StringBuilder sb = new StringBuilder();
+        sb.append(params.getFirst());
+        for (int i = 1; i < params.size() - 1; i++) {
+            sb.append(' ').append(params.get(i));
+        }
+        sb.append(' ').append(guaranteedDigit);
+        this.key = Base64.getEncoder().encodeToString(sb.toString().getBytes(StandardCharsets.UTF_8));
     }
 
-    private void advancedFullKeyGenerator(int first, int second, int third, int fourth, int fifth, int sixth,
-                                          int seventh, int eighth, int ninth, int tenth, int eleventh, int twelfth,
-                                          int thirteenth, int fourteenth, int length) {
+    private void advancedFullKeyGenerator(ArrayList<Integer> params) {
 
-        int guaranteedDigit = (int) (Math.random() * length);
+        int length = params.size() - 1;
 
-        String key = first + " " + second + " " + third  + " " + fourth  + " " + fifth  + " " + sixth  + " " + seventh
-                + " " + eighth  + " " + ninth  + " " + tenth  + " " + eleventh  + " " + twelfth  + " " + thirteenth
-                + " " + fourteenth  + " " + guaranteedDigit;
+        int guaranteedDigit = (int) (Math.random() * params.get(length));
 
-        this.key = Base64.getEncoder().encodeToString(key.getBytes(StandardCharsets.UTF_8));
+        StringBuilder sb = new StringBuilder();
+        sb.append(params.getFirst());
+        for (int i = 1; i < params.size() - 1; i++) {
+            sb.append(' ').append(params.get(i));
+        }
+        sb.append(' ').append(guaranteedDigit);
+        this.key = Base64.getEncoder().encodeToString(sb.toString().getBytes(StandardCharsets.UTF_8));
     }
 
     public String getKey() {
